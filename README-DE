@@ -1,0 +1,206 @@
+/*
+	README - 31.08.2012
+
+	mapCasting - is easy-to-use Web-based multilingual accounting software.
+	Copyright (C) 2012 M. Ayhan POLAT
+
+	This program is free software; you can redistribute it and/or modify it
+	under the terms of the GNU General Public License as published by the Free
+	Software Foundation; either version 2 of the License, or (at your option)
+	any later version.
+
+	This program is distributed in the hope that it will be useful, but WITHOUT
+	ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+	FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+	more details.
+
+	You should have received a copy of the GNU General Public License along with
+	this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+	Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+
+
+	Um mapCasting 1.0.0 zu installieren wird folgendes benoetigt:
+
+	------
+	Server
+	------
+
+	Webserver:
+	Apache, Lighttpd oder auch ( Microsoft IIS - nicht getestet )
+
+	PHP:
+	PHP Version 5 - ( mbstring, PEAR::Mail, Mail_Mime )
+
+	MySQL:
+	MySQL Version 5 oder 4
+
+	MailServer:
+	Postfix, Exim, Sendmail...
+
+	Die oben genannten Programme muessen bereits installiert und konfiguriert
+	sein.
+
+	------
+	Klient
+	------
+
+	Browser:
+	z. B. Firefox, Konqueror, Safari, Opera, Google Chrome ... ( Javascript muss
+	eingeschaltet sein )
+
+	PDF-Betrachter
+
+	------
+
+	Wichtig:
+	Unter Einstellung muss eine korrekte E-Mail Adresse eingetragen werden, da
+	ansonsten der E-Mail Verasand nicht funktioniert. Das selbe gilt auch, wenn
+	ein Relay-Server benutzt wird, da ansonsten die	E-Mail's vom Relay-Server
+	abgewiesen werden.
+
+	Wenn Sie keinen eigenen E-Mail Server haben, dann stellen Sie bitte in der
+	Datei /include/mapcasting.inc.php die Variable $PHPSendMail = ""; auf
+	$PHPSendMail = "1"; ein.
+
+	In der Datei /include/mail.inc.php muessen noch Aenderungen vorgenommen
+	werden Host, Port und falls Anmeldung notwendig ist, $Smtp["auth"] auf true
+	zu stellen und $Smtp["username"] und $Smtp["password"] eintragen.
+
+	$Smtp["host"] = "ihrmailserver";
+	$Smtp["port"] = "25";
+	$Smtp["auth"] = false;
+	$Smtp["username"] = "";
+	$Smtp["password"] = "";
+
+	#####
+
+	Wichtiger Hinweis:
+
+	Bitte haben Sie Verstaendnis, dass fuer die oben genannten Programme keine
+	Anfragen mehr beantwortet werden koennen.
+
+	Fragen zu ( open_basedir, safe_mode etc. ) haben nichts mit mapCasting zu
+	tun und werden auch nicht mehr beantwortet
+	
+	#####
+
+	mapCasting_1_0_0.zip entpacken - unzip mapCasting_1_0_0.zip Das
+	Verzeichnis 'mapCasting_1_0_0' auf den Webserver kopieren. z. B. /var/www
+	Sie koennen das Verzeichnis auch umbenennen.
+
+	####################
+
+	!!! WICHTIGER HINWEIS !!!
+
+	In mapCasting wird Smarty Template Engine verwendet. Damit das ganze
+	funktioniert, muessen noch einige Aenderungen vorgenommen werden.
+	
+	Der Webserver muss fuer die Verzeichnise '/include/smarty/cache' und
+	'/include/smarty/templates_c' Schreibrechte bekommen.
+
+	!!! Es wird empfohlen ein Verzeichnis ausserhalb des DocumentRoot zu
+	verwenden !!!
+
+	Das gilt auch fuer die Verzeichnise '/include/smarty/templates' und
+	'/include/smarty/configs'
+
+	Nach den Aenderungen muessen Sie dies auch mapCasting mitteilen.
+
+	In '/include/smarty.inc.php' folgende Variablen anpassen:
+	$Templateroot und $Cacheroot von $_SERVER['DOCUMENT_ROOT']."mapCasting";
+	
+	aendern in z. B.:
+    $smarty->template_dir = "/var/www/include/smarty/templates";
+	$smarty->config_dir = "/var/www/include/smarty/configs";
+	$smarty->compile_dir = "/var/www/include/smarty/templates_c";
+	$smarty->cache_dir = "/var/www/include/smarty/cache";
+
+	Achten Sie bitte auf eine korrekte Schreibweise.
+
+	Mehr Informationen finden Sie unter Link: http://www.smarty.net/
+
+	FAQ Link: http://www.mapolat.p7.de/mapCasting/FAQ.php#faq1.4
+
+
+	####################
+
+	Datenbank erstellen:
+
+	####################
+
+	mysqladmin -u 'benutzername' -p create mapcasting
+
+	Tabellen erstellen:
+	mysql -u 'benutzername' -p mapcasting < mapcasting_1_0_0.sql
+
+	Falls kein 'root' Zugriff vorhanden, dann am besten 'phpMyAdmin' benutzen.
+
+	Zuerst Datenbank erstellen, waehlen Sie dann die Datenbank aus, dann
+	Importieren, Datei dursuchen, passende SQL Datei auswaehlen: mapcasting_1_0_0.sql,
+	Zeichencodierung der Datei 'latin1' waehlen und auf OK klicken.
+
+	Sie sollten dann z. B. folgende Meldung sehen:
+
+	Der Import wurde erfolgreich abgeschlossen, 127 Abfragen wurden ausgefuehrt.
+
+	!!! WICHTIG !!!
+
+	Bitte fuegen Sie NICHT die SQL-Datei in das Feld SQL-Befehl(e) in Datenbank
+	ein. Die Daten werden ohne Fehler eingefuegt aber eine Anmeldung ist danach
+	NICHT mehr moeglich.
+
+	Folgende Dateien muessen geaendert werden damit man auf die neu erstellte
+	Datenbank 'mapcasting' zugreifen kann.
+
+	Im Verzeichnis 'include'
+
+	'dbconf.php' fuer die Datenbankverbindung
+	_DBHOST z. B. "localhost"
+	_BBUSER z. B. "benutzername"
+	_DBPASS z. B. "benutzerpasswort"
+	_DBNAME z. B. "mapcasting"
+
+	Der _DBUSER muss ueber ausreichende Rechte auf dem Datenbankserver verfuegen
+	- Erstellen, Aendern, Loeschen etc.
+
+	'mapcasting.inc.php' ( wichtig ist die Variable "$web" dort bitte eigene
+	Webadresse zu mapCasting eintragen ) z. B. http://ihrserver/mapCasting
+	( ohne '/' am Ende ) da sonst die Weiterleitung nicht funktioniert.
+
+	Fuer die Benutzer die mapCasting auf einem Windows Server betreiben, bitte
+	unter Konfiguration/Einstellung den Wert von TMP-Verzeichnis anpassen.
+
+	Standard ist '/tmp/' in z. B. 'c:\windows\temp\'
+
+	Bitte beachten Sie den letzten Backslash. Wichtig.
+
+	Der Webserver muss Schreibrechte fuer das Verzeichnis haben.
+	
+	Auf einem Windows Server bitte auch 'session.save_path' ueberpruefen.
+
+	Standard ist session.save_path = /tmp.
+
+	Wenn das der Fall ist, dann bitte aendern in z. B.
+	session.save_path = c:\windows\temp
+
+	Anmeldung:
+
+	Administrator: admin, admin
+
+	Die Benutzerdaten sind in der Tabelle 'user' verschluesselt gespeichert
+
+	Nach der Ersten Anmeldung werden Sie aufgefordert die mapCasting Lizenz
+	( GPL v2 ) zu akzeptieren. Dieses Vorgehen ist fuer jeden Benutzer einmalig
+	notwendig.
+
+	Das Admin-Passwort kann geaendert werden, nur der Anmeldename 'admin' darf
+	nicht veraendert werden. Ansonsten werden viele Seiten nicht anzeigen.
+
+    ####################
+
+	mapCasting Homepage - http://www.mapolat.p7.de/mapCasting/
+
+	Vielen Dank fuer die Nutzung von mapCasting
+
+	M. Ayhan POLAT

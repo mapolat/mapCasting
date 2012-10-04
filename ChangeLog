@@ -1,0 +1,67 @@
+/*
+	README - 31.08.2012
+
+	mapCasting - is easy-to-use Web-based multilingual accounting software.
+	Copyright (C) 2012 M. Ayhan POLAT
+
+	This program is free software; you can redistribute it and/or modify it
+	under the terms of the GNU General Public License as published by the Free
+	Software Foundation; either version 2 of the License, or (at your option)
+	any later version.
+
+	This program is distributed in the hope that it will be useful, but WITHOUT
+	ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+	FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+	more details.
+
+	You should have received a copy of the GNU General Public License along with
+	this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+	Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+
+
+	31.08.2012
+
+	Changes in mapCasting 1.0.0
+	---------------------------------------
+
+	- Accesskey's
+	-------------
+
+		Alt+W - Startpage
+		Alt+A - Addressbook
+		Alt+P - Position
+		Alt+O - Offer
+		Alt+I - Invoice
+		Alt+N - Creditnote
+		Alt+M - Payment
+		Alt+C - Cashbook
+		Alt+R - Reports
+		Alt+S - Configuration
+		Alt+U - Super User
+		Alt+L - Logout
+
+		Submenu can be reached by pressing Alt+1, for first entry and so on....
+		Will not work if you have more than one tab open.
+
+	- E-Mail function was changed.
+
+		phpInvoice uses now the PEAR Mail:: Interface
+
+		The configuration file ' mail.inc.php ' can be found in the /include directory.
+
+		$Smtp["host"] = "yourmailserver";
+		$Smtp["port"] = "25";
+		$Smtp["auth"] = false;
+		$Smtp["username"] = "";
+		$Smtp["password"] = "";
+
+		If your mail server needs authentication, so please change
+		$Smtp["auth"] = true; and set $Smtp["username"] and $Smtp["password"]
+
+
+mapCasting Home page - http://www.mapolat.p7.de/mapCasting/
+
+Thank you very much for using mapCasting
+
+2012 M. Ayhan POLAT
